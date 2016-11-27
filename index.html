@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>Shopping Cart</title>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="dist/shoppingCart.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles/app.css">
+        <script>
+            var myApp = angular.module('myApp',['shoppingCart']);
+
+            myApp.controller ('shoppingCartController', ['$scope', '$http', 'shoppingCart', function($scope, $http, shoppingCart) {
+                shoppingCart.setTaxRate(7.5);
+                shoppingCart.setShipping(2.99);    
+            }]);
+        </script>
+
+</head>
+<body>
+	
+<div ng-controller="shoppingCartController">
+
+<div class="row">
+  
+    <div class="col-xs-offset-8 col-xs-4">
+    <div class="row-header">Your Bag</div>
+        
+      <shoppingcart-summary></shoppingcart-summary>
+    </div>
+    </div>
+    <hr />
+         <div class="row-header">Product List</div>
+<div class="row">
+    <div class="col-xs-6 col-sm-3">
+        <img src="styles\images\11730556_8194858_255.jpg" />
+        <h4>My Item #1</h4>
+        <p> $10.99</p>
+        <shoppingcart-addtocart id="item1" name="My Item #1" price="10.99" quantity="1" quantity-max="5">Add to Cart</shoppingcart-addtocart>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+        <img src="styles\images\11734827_8179707_255.jpg" />
+        <h4>My Item #2</h4>
+        <p> $15.29</p>
+        <shoppingcart-addtocart id="item2" name="My Item #2" price="15.29" quantity="1" quantity-max="5">Add to Cart</shoppingcart-addtocart>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+        <img src="styles\images\11735583_8161812_255.jpg" />
+        <h4>My Item #3</h4>
+        <p> $25.75</p>
+        <shoppingcart-addtocart id="item3" name="My Item #3" price="25.75" quantity="3" quantity-max="10">Add to Cart</shoppingcart-addtocart>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+        <img src="styles\images\11736243_8231608_255.jpg" />
+        <h4>My Item #4</h4>
+        <p> $29.25</p>
+        <shoppingcart-addtocart id="item4" name="My Item #4" price="29.25" quantity="1" quantity-max="10">Add to Cart</shoppingcart-addtocart>        
+    </div>
+    <div class="col-xs-6 col-sm-3">
+        <img src="styles\images\11745743_8214817_255.jpg" />
+        <h4>My Item #5</h4>
+        <p> $26.25</p>
+        <shoppingcart-addtocart id="item5" name="My Item #5" price="26.25" quantity="1" quantity-max="7">Add to Cart</shoppingcart-addtocart>        
+    </div>
+</div>
+
+    <hr/>
+    <h3>Cart <span> (shoppingcart-cart)</span></h3>
+
+    <shoppingcart-cart></shoppingcart-cart>
+   
+    <hr/>     
+
+
+    </div>
+</div>
+
+</div>
+
+
+<!--  TEMPALATES -->
+<!--  TEMPALATES -->
+<!--  TEMPALATES -->
+
+<script type="text/ng-template" id="src/views/summary.html"><div class="row">
+ 
+    <div class="col-md-6">{{ shoppingCart.getTotalItems() }}
+        <ng-pluralize count="shoppingCart.getTotalItems()" when="{1: 'item', 'other':'items'}"></ng-pluralize>
+        <br />{{ shoppingCart.totalCost() | currency }}
+    </div>
+</div>
+</script>
+
+
+<script type="text/ng-template" id="src/views/cart.html">
+<div class="alert alert-warning" role="alert" ng-show="shoppingCart.getTotalItems() === 0">
+    Your cart is empty
+</div>
+
+<div class="table-responsive col-lg-12" ng-show="shoppingCart.getTotalItems() > 0">
+
+    <table class="table table-striped shoppingCart cart">
+
+        <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Quantity</th>
+            <th>Amount</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr ng-show="shoppingCart.getTax()">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Tax ({{ shoppingCart.getTaxRate() }}%):</td>
+            <td>{{ shoppingCart.getTax() | currency }}</td>
+        </tr>
+        <tr ng-show="shoppingCart.getShipping()">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Shipping:</td>
+            <td>{{ shoppingCart.getShipping() | currency }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total:</td>
+            <td>{{ shoppingCart.totalCost() | currency }}</td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <tr ng-repeat="item in shoppingCart.getCart().items track by $index">
+            <td><span ng-click="shoppingCart.removeItemById(item.getId())" class="glyphicon glyphicon-remove"></span></td>
+
+            <td>{{ item.getName() }}</td>
+            <td><span class="glyphicon glyphicon-minus" ng-class="{'disabled':item.getQuantity()==1}"
+                      ng-click="item.setQuantity(-1, true)"></span>&nbsp;&nbsp;
+                {{ item.getQuantity() | number }}&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-plus" ng-click="item.setQuantity(1, true)"></span></td>
+            <td>{{ item.getPrice() | currency}}</td>
+            <td>{{ item.getTotal() | currency }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</script>
+
+<script type="text/ng-template" id="src/views/addtocart.html"><div ng-hide="attrs.id">
+    <a class="btn btn-lg btn-primary" ng-disabled="true" ng-transclude></a>
+
+</div>
+<div ng-show="attrs.id">
+    <div>
+        <span ng-show="quantityMax">
+            <select name="quantity" id="quantity" ng-model="q"
+                    ng-options=" v for v in qtyOpt"></select>
+        </span>
+        <a class="btn btn-sm btn-primary"
+           ng-click="shoppingCart.addItem(id, name, price, q, data)"
+           ng-transclude></a>
+    </div>
+    <mark  ng-show="inCart()">
+        This item is in your cart. <a ng-click="shoppingCart.removeItemById(id)" style="cursor: pointer;">Remove</a>
+    </mark>
+</div>
+</script>
+	
+</body>
+</html>   

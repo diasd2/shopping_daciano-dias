@@ -1,0 +1,15 @@
+{
+  "name": "shoppingCart",
+  "description": "Shopping Cart",
+  "keywords": ["AngularJS", "module", "directive", "shopping cart", "e-commerce", "cart", "basket", "shopping"],
+  "authors": [{"name":"Daciano Dias", "email":"daciano.miguel@gmail.com"}],
+  "version": "1.0.0",
+  "main": "dist/shoppingCart.js",
+  "private": false,
+  "dependencies": {
+    "angular": ">=1.2.x"
+  },
+  "devDependencies": {
+    "angular-mocks": ">=1.2.x"
+  }
+}

@@ -1,7 +1,7 @@
 'use strict';
 
-describe('shoppingCart module', function() {
-    beforeEach(module('shoppingCart'));
+describe('shoppishoppingCart module', function() {
+    beforeEach(module('shoppishoppingCart'));
 
 
     describe('value - version', function() {
@@ -20,13 +20,13 @@ describe('shoppingCart module', function() {
             $controller = _$controller_;
         }));
 
-        describe('$scope.ngCart', function() {
+        describe('$scope.shoppishoppingCart', function() {
 
             var $scope;
             var controller;
 
             function addItem(id, name, price, quantity, data){
-                $scope.ngCart.addItem(id, name, price, quantity, data);
+                $scope.shoppishoppingCart.addItem(id, name, price, quantity, data);
             }
 
             beforeEach(function() {
@@ -35,35 +35,35 @@ describe('shoppingCart module', function() {
 
             });
 
-            it('sets instance of ngCart to scope', function() {
-                expect(typeof $scope.ngCart).toEqual('object');
+            it('sets instance of shoppingCart to scope', function() {
+                expect(typeof $scope.shoppingCart).toEqual('object');
             });
 
 
             it('should be able to add an item', function() {
                 addItem(1, 'Test Item', 10, 2);
-                expect($scope.ngCart.getItems().length).toEqual(1);
+                expect($scope.shoppingCart.getItems().length).toEqual(1);
             });
 
 
              it('should be able to empty', function() {
-                $scope.ngCart.empty();
-                expect($scope.ngCart.getItems().length).toEqual(0);
+                $scope.shoppingCart.empty();
+                expect($scope.shoppingCart.getItems().length).toEqual(0);
             });
 
             it('should be able to show isEmpty', function() {
-                $scope.ngCart.empty();
-                expect($scope.ngCart.isEmpty()).toEqual(true);
+                $scope.shoppingCart.empty();
+                expect($scope.shoppingCart.isEmpty()).toEqual(true);
             });
 
 
-            describe('ngCart', function() {
+            describe('shoppingCart', function() {
 
 
                 beforeEach(function(){
 
-                    $scope.ngCart.setTaxRate(7.5);
-                    $scope.ngCart.setShipping(12.50);
+                    $scope.shoppingCart.setTaxRate(7.5);
+                    $scope.shoppingCart.setShipping(12.50);
                     addItem(1, 'Work boots', 189.99, 1);
                     addItem(2, 'Hockey gloves', 85, 2);
                     addItem('cpBow', 'Compound bow', 499.95, 1);
@@ -72,67 +72,67 @@ describe('shoppingCart module', function() {
 
 
                 it('tax should be set', function() {
-                    expect($scope.ngCart.getTaxRate()).toEqual(7.5);
+                    expect($scope.shoppingCart.getTaxRate()).toEqual(7.5);
                 });
 
                 it('shipping should be set', function() {
-                    expect($scope.ngCart.getShipping()).toEqual(12.50);
+                    expect($scope.shoppingCart.getShipping()).toEqual(12.50);
                 });
 
                 it('tax charge should be ', function() {
-                    expect($scope.ngCart.getTax()).toEqual(64.5);
+                    expect($scope.shoppingCart.getTax()).toEqual(64.5);
                 });
 
                 it('count items in total', function() {
-                    expect($scope.ngCart.getTotalItems()).toEqual(4);
+                    expect($scope.shoppingCart.getTotalItems()).toEqual(4);
                 });
 
                 it('count unique items in cart', function() {
-                    expect($scope.ngCart.getTotalUniqueItems()).toEqual(3);
+                    expect($scope.shoppingCart.getTotalUniqueItems()).toEqual(3);
                 });
 
 
                 it('check getItems has correct number of items', function() {
-                    expect($scope.ngCart.getItems().length).toEqual(3);
+                    expect($scope.shoppingCart.getItems().length).toEqual(3);
                 });
 
                 it('Have correct getSubTotal', function() {
-                    expect($scope.ngCart.getSubTotal()).toEqual(859.94);
+                    expect($scope.shoppingCart.getSubTotal()).toEqual(859.94);
                 });
                 
                 it('should be able to show isEmpty correctly as false', function() {
-                    expect($scope.ngCart.isEmpty()).toEqual(false);
+                    expect($scope.shoppingCart.isEmpty()).toEqual(false);
                 });
 
                 it('Have correct totalCost', function() {
-                    expect($scope.ngCart.totalCost()).toEqual(936.94);
+                    expect($scope.shoppingCart.totalCost()).toEqual(936.94);
                 });
 
 
                 it('find item by id (by int) ', function() {
-                    expect($scope.ngCart.getItemById(2).getName()).toEqual('Hockey gloves');
+                    expect($scope.shoppingCart.getItemById(2).getName()).toEqual('Hockey gloves');
                 });
 
 
                 it('find item by id (by string) ', function() {
-                    expect($scope.ngCart.getItemById('cpBow').getName()).toEqual('Compound bow');
+                    expect($scope.shoppingCart.getItemById('cpBow').getName()).toEqual('Compound bow');
                 });
 
 
                 it('remove item by ID', function() {
-                    $scope.ngCart.removeItemById('cpBow');
-                    expect($scope.ngCart.getItemById('cpBow')).toEqual(false);
-                    expect($scope.ngCart.getTotalUniqueItems()).toEqual(2);
+                    $scope.shoppingCart.removeItemById('cpBow');
+                    expect($scope.shoppingCart.getItemById('cpBow')).toEqual(false);
+                    expect($scope.shoppingCart.getTotalUniqueItems()).toEqual(2);
                 });
 
 
                 it('remove item by ID', function() {
-                    $scope.ngCart.removeItemById('cpBow');
-                    expect($scope.ngCart.getItemById('cpBow')).toEqual(false);
+                    $scope.shoppingCart.removeItemById('cpBow');
+                    expect($scope.shoppingCart.getItemById('cpBow')).toEqual(false);
                 });
 
                 it('should create an object', function() {
-                    var obj =  $scope.ngCart.toObject();
+                    var obj =  $scope.shoppingCart.toObject();
                     expect(obj.shipping).toEqual( 12.50 );
                     expect(obj.tax).toEqual( 64.5 );
                     expect(obj.taxRate).toEqual( 7.5 );
@@ -144,53 +144,53 @@ describe('shoppingCart module', function() {
 
             });
 
-            describe('ngCartItem', function() {
+            describe('shoppingCartItem', function() {
 
-                var ngCartItem;
+                var shoppingCartItem;
 
                 beforeEach(function(){
                     addItem('lRope', 'Lariat rope', 39.99);
-                    ngCartItem = $scope.ngCart.getItemById('lRope');
+                    shoppingCartItem = $scope.shoppingCart.getItemById('lRope');
                 });
 
 
                 it('should have correct Name', function() {
-                    expect(ngCartItem.getName()).toEqual('Lariat rope');
+                    expect(shoppingCartItem.getName()).toEqual('Lariat rope');
                 });
 
                 it('should default quantity to 1', function() {
-                    expect(ngCartItem.getQuantity()).toEqual(1);
+                    expect(shoppingCartItem.getQuantity()).toEqual(1);
                 });
 
                 it('should update quantity', function() {
-                    expect(ngCartItem.getName()).toEqual('Lariat rope');
+                    expect(shoppingCartItem.getName()).toEqual('Lariat rope');
                 });
 
                 it('should absolutely update quantity', function() {
-                    expect(ngCartItem.getQuantity()).toEqual(1);
-                    ngCartItem.setQuantity(5);
-                    expect(ngCartItem.getQuantity()).toEqual(5);
+                    expect(shoppingCartItem.getQuantity()).toEqual(1);
+                    shoppingCartItem.setQuantity(5);
+                    expect(shoppingCartItem.getQuantity()).toEqual(5);
                 });
 
                 it('should relatively update quantity', function() {
-                    expect(ngCartItem.getQuantity()).toEqual(1);
-                    ngCartItem.setQuantity(1, true);
-                    expect(ngCartItem.getQuantity()).toEqual(2);
+                    expect(shoppingCartItem.getQuantity()).toEqual(1);
+                    shoppingCartItem.setQuantity(1, true);
+                    expect(shoppingCartItem.getQuantity()).toEqual(2);
                 });
 
 
                 it('should get total', function() {
-                    expect(ngCartItem.getTotal()).toEqual(39.99);
+                    expect(shoppingCartItem.getTotal()).toEqual(39.99);
                 });
 
                 it('should update total after quantity change', function() {
-                    ngCartItem.setQuantity(1, true);
-                    expect(ngCartItem.getTotal()).toEqual( 79.98 );
+                    shoppingCartItem.setQuantity(1, true);
+                    expect(shoppingCartItem.getTotal()).toEqual( 79.98 );
                 });
 
 
                 it('should create an object', function() {
-                    var obj = ngCartItem.toObject();
+                    var obj = shoppingCartItem.toObject();
                     expect(obj.id).toEqual( 'lRope' );
                     expect(obj.name).toEqual( 'Lariat rope' );
                     expect(obj.price).toEqual( 39.99 );

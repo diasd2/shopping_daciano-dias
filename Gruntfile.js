@@ -32,16 +32,12 @@ module.exports = function (grunt) {
         karma: {
             unit: {
                 configFile: 'karma.conf.js',
-                background: true
+                background: true,
+                browsers: ['PhantomJS2']
             },
             once: {
                 configFile: 'karma.conf.js',
                 singleRun: true
-            },
-            travis: {
-                configFile: 'karma.conf.js',
-                singleRun: true,
-                browsers: ['PhantomJS2']
             }
         },
 
@@ -66,7 +62,6 @@ module.exports = function (grunt) {
     grunt.registerTask('build', ['concat', 'uglify']);
     grunt.registerTask('devmode', ['karma:unit', 'watch']);
     grunt.registerTask('testunit', ['karma:unit']);
-    grunt.registerTask('test', ['karma:travis']);
 
 
     grunt.registerTask('default', ['test', 'build']);
